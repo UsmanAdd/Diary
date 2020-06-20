@@ -14,6 +14,8 @@ public class Page {
         this.date = Calendar.getInstance().getTime();
         this.description = description;
         this.text = text;
+
+
     }
 
     public void display() {
