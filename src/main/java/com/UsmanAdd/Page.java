@@ -1,6 +1,7 @@
 package com.UsmanAdd;
 
-import java.util.ArrayList;
+
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,9 +10,10 @@ public class Page {
     private Date date;
     private String description;
     private String text;
-    Input write = new Input();
-    ArrayList<Page> pages = new ArrayList <Page>();
+    private static File dir;
 
+    Input write = new Input();
+    Tool tool = new Tool(dir);
 
     public Page(String description, String text) {
         this.id++;
@@ -20,16 +22,6 @@ public class Page {
         this.text = text;
     }
 
-    public Page(){};
-
-    public void add(){
-        System.out.print("Введите описание: ");
-        description = write.input();
-        System.out.print("Введите что с вами произошло: ");
-        text = write.input();
-        Page page = new Page(description, text);
-        pages.add(page);
-    }
     @Override
     public String toString() {
         return "Page{" +
@@ -39,7 +31,20 @@ public class Page {
                 '}';
     }
 
+    public static void setId(int id) {
+        Page.id = id;
+    }
+
+    public static void setDir(File dir) {
+        Page.dir = dir;
+    }
+
     public Date getDate() {
         return date;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

@@ -1,12 +1,19 @@
 package com.UsmanAdd;
 
 
+import java.io.File;
+
 public class Main {
 
 
     public static void main(String[] args) {
         Input choose = new Input();
-        Tool tool = new Tool();
+        File dir = new File("C:\\Users\\User\\Desktop", "pages");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        Tool tool = new Tool(dir);
+        Page.setDir(dir);
 
         String answer = null;
         String description;
@@ -19,27 +26,28 @@ public class Main {
         while (true) {
             System.out.println("Список действий");
             System.out.println("1) Добавить запись");
+            System.out.println("2) Прочитать запись");
+            System.out.println("3) Удалить запись");
             System.out.print("Выберите действие: ");
             answer = choose.input();
+            System.out.println();
             switch (answer) {
                 case "1":
                     tool.add();
                     break;
+                case "2":
+                    tool.read();
+                    break;
+                case "3":
+                    tool.delete();
+                    break;
             }
             if (answer.contains("выход")) {
+                System.out.println("Всего хорошего!");
                 break;
             }
 
         }
 
-//
-//        Page a = new Page(description,text);
-//        a.display();
-//        System.out.println();
-//        Page b = new Page("А сегодня ничего нового", "Потаюсь написать свой дневник");
-//        b.display();
-//        System.out.println();
-//        Page с = new Page("А сегодня ничего нового", "Потаюсь написать свой дневник");
-//        с.display();
     }
 }
