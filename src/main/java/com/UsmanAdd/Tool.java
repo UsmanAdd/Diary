@@ -1,8 +1,9 @@
 package com.UsmanAdd;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Tool {
     private String description;
@@ -10,6 +11,7 @@ public class Tool {
     private File dir;
     private int numberOfFile = 0;
     Input write = new Input();
+    Output output = new Output();
     ArrayList<File> files = new ArrayList<File>();
 
     public Tool(File dir) {
@@ -19,6 +21,12 @@ public class Tool {
             for (File file : dir.listFiles()) {
                 files.add(file);
             }
+
+            Collections.sort(files, new Comparator<File>() {
+                public int compare(File f1, File f2) {
+                    return Long.compare(f1.lastModified(), f2.lastModified());
+                }
+            });
         }
     }
 
@@ -28,8 +36,7 @@ public class Tool {
         System.out.print("Введите что с вами произошло: ");
         text = write.input();
         Page page = new Page(description, text);
-        Page.setId(numberOfFile);
-        File file = new File(dir.getAbsolutePath(), (page.getId() + 1) + "." + description + ".txt");
+        File file = new File(dir.getAbsolutePath(), description + ".txt");
         try {
             file.createNewFile();
             files.add(file);
@@ -44,23 +51,15 @@ public class Tool {
     }
 
     public void read() {
-        int i = 1;
         int numberOfNote;
         String number;
-        Input write = new Input();
-        Output output = new Output();
 
         if (!dir.exists() || dir.listFiles().length == 0) {
             System.out.println("Увы, к сожалению записей пока нет");
             System.out.println();
         } else {
-            System.out.println("Ваши записи:");
-            for (File file : dir.listFiles()) {
-                System.out.println(i + ") " + file.getName());
-                i++;
-            }
+            list();
             this.numberOfFile = dir.listFiles().length;
-            Page.setId(numberOfFile);
             System.out.print("Введите номер файла: ");
             number = write.input();
             numberOfNote = Integer.parseInt(number);
@@ -72,7 +71,29 @@ public class Tool {
     }
 
     public void delete() {
-
+        String number;
+        int numberOfNote;
+        if (!dir.exists() || dir.listFiles().length == 0) {
+            System.out.println("Увы, к сожалению записей пока нет");
+            System.out.println();
+        } else {
+            list();
+            System.out.println("Введите номер файла, который вы собираетесь удалить");
+            number = write.input();
+            numberOfNote = Integer.parseInt(number);
+            System.out.println();
+            File file = new File(files.get(numberOfNote - 1).getAbsolutePath());
+            if (file.delete()) System.out.println("Запись успешно удалена\n");
+            files.remove(numberOfNote - 1);
+        }
     }
 
+    private void list() {
+        int i = 1;
+        System.out.println("Ваши записи:");
+        for (File file : files) {
+            System.out.println(i + ") " + file.getName());
+            i++;
+        }
+    }
 }

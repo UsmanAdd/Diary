@@ -28,7 +28,7 @@ public class Main {
             System.out.println("1) Добавить запись");
             System.out.println("2) Прочитать запись");
             System.out.println("3) Удалить запись");
-            System.out.print("Выберите действие: ");
+            System.out.print("Выберите действие (напишете 'выход', если хотите уйти): ");
             answer = choose.input();
             System.out.println();
             switch (answer) {

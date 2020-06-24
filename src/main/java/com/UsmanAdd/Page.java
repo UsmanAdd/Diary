@@ -5,8 +5,7 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Page {
-    private static int id = 0;
+public class Page{
     private Date date;
     private String description;
     private String text;
@@ -16,7 +15,6 @@ public class Page {
     Tool tool = new Tool(dir);
 
     public Page(String description, String text) {
-        this.id++;
         this.date = Calendar.getInstance().getTime();
         this.description = description;
         this.text = text;
@@ -31,10 +29,6 @@ public class Page {
                 '}';
     }
 
-    public static void setId(int id) {
-        Page.id = id;
-    }
-
     public static void setDir(File dir) {
         Page.dir = dir;
     }
@@ -43,8 +37,5 @@ public class Page {
         return date;
     }
 
-    public int getId() {
-        return id;
-    }
 
 }
