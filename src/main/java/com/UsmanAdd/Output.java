@@ -11,9 +11,11 @@ public class Output {
         try {
             BufferedReader bR = new BufferedReader(new FileReader(file));
             String line;
+            System.out.println("########################################");
             while ((line = bR.readLine()) != null) {
                 System.out.println(line);
             }
+            System.out.println("########################################");
             System.out.println();
             bR.close();
         } catch (FileNotFoundException e) {

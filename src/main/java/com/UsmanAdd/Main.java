@@ -21,7 +21,7 @@ public class Main {
         String type = "Консольное приложение";
         String version = "1.0.0";
 
-        System.out.println("\t\tДобро пожаловать! В " + type + " версии " + version);
+        System.out.println("\t\tДобро пожаловать в " + type + " версии " + version + "!\n");
 
         while (true) {
             System.out.println("Список действий");
